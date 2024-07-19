@@ -1,5 +1,5 @@
 import * as React from "react";
-import Image from "next/image";
+
 import { Heading } from "@/components/ui/heading";
 import { Loader } from "@/components/ui/loader";
 import { LinkForm } from "@/components/links/link-form";

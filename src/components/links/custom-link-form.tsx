@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
+import { useAction } from "next-safe-action/hooks";
 
 import { nanoid, setFormErrors } from "@/lib/utils";
 import { Button } from "../ui/button";
@@ -18,7 +19,6 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { useAction } from "next-safe-action/hooks";
 import { checkSlug, createShortLink, editShortLink } from "@/lib/actions/link";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
@@ -60,7 +60,7 @@ export function CustomLinkForm({
     form.reset();
   };
 
-  const handleError = (error: SafeActionError) => {
+  const handleError = ({ error }: { error: SafeActionError }) => {
     if (error.validationError) {
       return setFormErrors(form, error.validationError);
     }

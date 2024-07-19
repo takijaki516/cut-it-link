@@ -39,7 +39,7 @@ export function formatNumber(
 }
 
 export function setFormErrors(
-  form: UseFormReturn,
+  form: UseFormReturn<any, any, any>,
   errors: Record<string, string[]>,
 ) {
   for (const [field, messages] of Object.entries(errors)) {
