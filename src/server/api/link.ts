@@ -29,7 +29,7 @@ export async function getLinkBySlug(
   slug: string,
 ): Promise<ShortLink | undefined> {
   const link = await db.query.links.findFirst({
-    where: eq(links.slug, slug).append(sql`COLLATE NOCASE`),
+    where: sql`${links.slug} ILIKE ${slug}`,
   });
 
   return link;
