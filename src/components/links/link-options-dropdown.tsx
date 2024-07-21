@@ -33,16 +33,22 @@ export function LinkOptionsDropdownProps({
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button type="button" variant={"outline"} size="icon">
+          <Button
+            className="absolute right-2 top-3 cursor-pointer opacity-50 transition-opacity hover:opacity-50"
+            type="button"
+            variant={"outline"}
+            size="icon"
+          >
             <Icons.MoreVertical className={iconVariants()} />
             <span className="sr-only">Link actions menu</span>
           </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => setIsQRCodeDialogOpen(true)}>
-            <Icons.QrCode />
+          {/* <DropdownMenuItem onClick={() => setIsQRCodeDialogOpen(true)}>
+            <Icons.QrCode className={iconVariants({ className: "mr-2" })} />
             QR Code
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
 
           <ProtectedElement
             session={session}

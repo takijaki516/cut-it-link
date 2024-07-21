@@ -41,8 +41,9 @@ export function CustomLinkForm({
   defaultValues,
   isEditing,
 }: CustomLinkFormProps) {
-  const [slug, setSlug] = React.useState("");
   const [isSlugExist, setIsSlugExist] = React.useState(false);
+  //
+  const [slug, setSlug] = React.useState("");
   const debouncedSlug = useDebounce(slug, 500);
 
   const form = useForm<FormSchema>({
@@ -102,6 +103,7 @@ export function CustomLinkForm({
   React.useEffect(() => {
     setIsSlugExist(false);
 
+    // REVIEW:
     if (!debouncedSlug) {
       return form.clearErrors("slug");
     }
@@ -154,7 +156,7 @@ export function CustomLinkForm({
                 <div>Short Link (optional)</div>
 
                 <Button
-                  // REVIEW: h-auto???
+                  // REVIEW: h-auto???   px-0 py-0?
                   className="flex h-auto items-center px-0 py-0 text-xs text-muted-foreground transition-colors hover:bg-background hover:text-foreground"
                   type="button"
                   variant={"ghost"}
@@ -186,12 +188,14 @@ export function CustomLinkForm({
                     }}
                   />
                   {isCheckingSlug && (
-                    <div className="absolute end-4 top-1/2 -translate-y-1/2 transform text-muted-foreground">
+                    // REVIEW: css transform?
+                    <div className="absolute end-3 top-1/2 -translate-y-1/2 transform text-muted-foreground">
                       <Loader />
                     </div>
                   )}
                 </div>
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -205,13 +209,15 @@ export function CustomLinkForm({
               <FormControl>
                 <Textarea
                   placeholder="Your description here"
-                  {...field}
                   className="resize-none"
+                  {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
+
         <Button
           type="submit"
           disabled={!form.formState.isDirty}

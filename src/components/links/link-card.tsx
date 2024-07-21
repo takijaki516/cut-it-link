@@ -2,10 +2,10 @@ import Image from "next/image";
 import { type Session } from "next-auth";
 import { formatDistanceToNowStrict } from "date-fns";
 
+import { formatNumber, getBaseUrl } from "@/lib/utils";
 import { type ShortLink } from "@/lib/db/schema";
 import { Card, CardContent } from "../ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
-import { formatNumber, getBaseUrl } from "@/lib/utils";
 import { Icons, iconVariants } from "../ui/icons";
 import { LinkCopyButton } from "./link-copy-button";
 import { Button } from "../ui/button";
@@ -24,7 +24,7 @@ export function LinkCard({ link, session }: LinkCardProps) {
   return (
     <Card className="relative transition-colors hover:border-foreground dark:hover:border-neutral-500">
       <CardContent className="flex gap-2 p-3">
-        {/* REVIEW: image... */}
+        {/* REVIEW: image css why flex? */}
         <div className="flex min-w-8 flex-col justify-center">
           <Image
             src={"vercel.svg"}
@@ -41,7 +41,7 @@ export function LinkCard({ link, session }: LinkCardProps) {
             <a
               href={shortenedURL}
               // REVIEW: css width를 어떻게 지정했지?
-              className="w-[168px] truncate font-mono font-medium"
+              className="w-[168px] truncate font-mono font-medium hover:text-red-400"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -77,7 +77,7 @@ export function LinkCard({ link, session }: LinkCardProps) {
           <div className="flex w-full max-w-52 flex-col gap-2 text-xs text-muted-foreground sm:max-w-72">
             <a
               href={decodedURL}
-              className="truncate"
+              className="truncate hover:text-green-400"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -102,6 +102,7 @@ export function LinkCard({ link, session }: LinkCardProps) {
         session={session}
       />
 
+      {/* REVIEW: */}
       {slug !== "github" && (
         <span className="absolute bottom-3 right-3 text-[10px] font-medium text-muted-foreground">
           <Tooltip>

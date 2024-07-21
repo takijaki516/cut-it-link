@@ -17,7 +17,7 @@ import {
 import { CustomLinkButton } from "./custom-link-button";
 import { CustomLinkForm } from "./custom-link-form";
 
-// REVIEW:
+// NOTE: typescript type 4 combination type
 type CustomLinkDialogProps = (
   | { isEditing: boolean; defaultValues: ShortLink }
   | { isEditing?: undefined; defaultValues?: undefined }
@@ -39,8 +39,9 @@ export function CustomLinkDialog({
   function handleOpenChange(isOpen: boolean) {
     if (!isControlled) {
       setIsOpen(isOpen);
+      return;
     }
-    onOpenChange?.(isOpen);
+    onOpenChange(isOpen);
   }
 
   const openState = isControlled ? open : isOpen;
@@ -52,7 +53,7 @@ export function CustomLinkDialog({
           <CustomLinkButton />
         </ResponsiveDialogTrigger>
       )}
-      
+
       <ResponsiveDialogContent>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>
@@ -68,6 +69,7 @@ export function CustomLinkDialog({
           />
         </ResponsiveDialogBody>
 
+        {/* REVIEW: */}
         <ResponsiveDialogFooter>
           <ResponsiveDialogClose asChild>
             <Button variant={"outline"}>Cancel</Button>

@@ -22,7 +22,7 @@ export default function Home() {
         </Heading>
       </div>
 
-      <div className="flex w-full flex-col items-center gap-4">
+      <div className="flex w-full max-w-md flex-col items-center gap-4">
         <LinkForm
           renderCustomLink={
             <React.Suspense fallback={<CustomLinkButton disabled />}>

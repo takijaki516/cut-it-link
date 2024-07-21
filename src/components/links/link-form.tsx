@@ -7,7 +7,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 
-import { Form, FormControl, FormField, FormItem } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "../ui/form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Icons, iconVariants } from "../ui/icons";
@@ -20,9 +26,9 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>;
 
-interface LinkFormProps {
+type LinkFormProps = {
   renderCustomLink: React.ReactNode;
-}
+};
 
 export function LinkForm({ renderCustomLink }: LinkFormProps) {
   const form = useForm<FormSchema>({
@@ -32,6 +38,7 @@ export function LinkForm({ renderCustomLink }: LinkFormProps) {
     },
   });
 
+  // NOTE: server action
   const { execute: createLink, status: createLinkStatus } = useAction(
     createShortLink,
     {
@@ -41,7 +48,7 @@ export function LinkForm({ renderCustomLink }: LinkFormProps) {
       },
       onError({ error }) {
         if (error.validationErrors) {
-          // REVIEW:
+          // REVIEW: react-hook-form의 타입
           return setFormErrors(form as any, error.validationErrors);
         }
         toast.error(error.serverError ?? error.fetchError);
@@ -69,12 +76,12 @@ export function LinkForm({ renderCustomLink }: LinkFormProps) {
                   <FormControl>
                     <Input placeholder="Enter the link here" {...field} />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
           </div>
 
-          {/* REVIEW: */}
           <Button size="icon" isLoading={createLinkStatus === "executing"}>
             <Icons.Scissors className={iconVariants({ size: "lg" })} />
             <span className="sr-only">Create short link</span>

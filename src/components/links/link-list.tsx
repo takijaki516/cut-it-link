@@ -1,12 +1,14 @@
 import { cookies } from "next/headers";
-import { auth } from "@/auth";
-import { ShortLink } from "@/lib/db/schema";
-import { getLinkBySlug, getLinksByUserLinkId } from "@/server/api/link";
 import { Session } from "next-auth";
-import { getUserLinkByUserId } from "@/server/api/user-link";
-import { SigninDialog } from "../auth/signin-dialog";
-import { LinkCard } from "./link-card";
 
+import { auth } from "@/auth";
+import { getLinkBySlug, getLinksByUserLinkId } from "@/server/api/link";
+import { ShortLink } from "@/lib/db/schema";
+import { getUserLinkByUserId } from "@/server/api/user-link";
+import { LinkCard } from "./link-card";
+import { SigninDialog } from "../auth/signin-dialog";
+
+// REVIEW:
 async function fetchLinksBySessionOrCookie(
   session: Session | null,
 ): Promise<ShortLink[]> {
@@ -52,7 +54,7 @@ export async function LinkList() {
 
       {!session && shortLinks.length > 0 && (
         <div className="px-4 text-xs text-muted-foreground">
-          Maximize
+          Maximize your link&apos;s lifespan beyond 24 hours by{" "}
           <SigninDialog>
             <span className="cursor-pointer text-foreground underline underline-offset-4">
               signing in

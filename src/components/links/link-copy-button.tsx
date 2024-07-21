@@ -11,6 +11,7 @@ type LinkCopyButtonProps = {
 };
 
 export function LinkCopyButton({ textToCopy }: LinkCopyButtonProps) {
+  // REVIEW:
   const handleCopy = async () => {
     navigator.clipboard.writeText(textToCopy);
     toast("Copied to clipboard");
@@ -20,6 +21,7 @@ export function LinkCopyButton({ textToCopy }: LinkCopyButtonProps) {
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
+          className="cursor-pointer opacity-50 transition-opacity hover:opacity-100"
           type="button"
           aria-label="Copy to clipboard"
           size="icon"
